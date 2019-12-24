@@ -1,0 +1,30 @@
+hostList:
+  - port: # 端口1 
+    authentication:
+      - username: # 用户名1 
+        password: # 密码 1
+        host:
+          - hostname: # 主机名（用于展示）
+            address: # ip地址
+          - hostname: # 主机名（用于展示）
+            address: # ip地址
+      - username: # 用户名2
+        password: # 密码 2
+        host:
+          - hostname:  # 主机名（用于展示）
+            address: # ip地址
+  - port: # 端口2 
+    authentication:
+      - username: # 用户名3
+        password: # 密码 3
+        host:
+          - hostname: # 主机名（用于展示） 
+            address: # ip地址
+keyList: # TODO 暂不支持密钥
+  - port: # 端口 
+    authentication:
+      - username: # 用户名
+        keyFile: # 密钥地址
+        host:
+          - hostname: # 主机名
+            address: # ip地址
