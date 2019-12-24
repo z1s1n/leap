@@ -10,3 +10,12 @@
  - [ ] 密钥登录
  - [x] 序号选择
  - [ ] 检索
+
+## 安装:
+ 1. `go get github.com/chazyu1996/leap`
+
+ 2. `cd $GOPATH/src/github.com/chazyu1996/leap`
+
+ 3. `go build leap.go`
+
+ 4. 编辑 `config.yaml` 文件
