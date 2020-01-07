@@ -16,12 +16,7 @@ func main() {
 	flag.Parse()
 	conf := config.GetYamlConfig(*configFilePath)
 	utils.InitConfigList(conf)
-	utils.Nav()
-	numStr := tools.GetInput()
-	num, err := strconv.Atoi(numStr[:len(numStr)-1])
-	if err != nil {
-		tools.PrintRed(err)
-	}
+	num := getInput()
 	num -= 1
 	host := utils.GetHost(num)
 	address := host["address"].(string)
@@ -38,4 +33,15 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func getInput() int {
+	utils.Nav()
+	numStr := tools.GetInput()
+	num, err := strconv.Atoi(numStr[:len(numStr)-1])
+	if err != nil {
+		utils.Search(numStr[:len(numStr)-1])
+		num = getInput()
+	}
+	return num
 }

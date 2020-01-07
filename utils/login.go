@@ -38,3 +38,7 @@ func Nav() {
 func GetHost(num int) map[string]interface{} {
 	return configList[num]
 }
+
+func GetConfigList() *[]map[string]interface{} {
+	return &configList
+}
