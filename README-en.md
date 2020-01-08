@@ -6,9 +6,9 @@ This project through the establishment of the principle of the board jumper, sup
 
 ## support:
 - [x] login by username and password
-- [ ] login by username and key (no password and with password)
+- [x] login by username and key (no password and with password)
 - [x] serial number selection
-- [ ] search
+- [x] search
 
 ## install:
 
