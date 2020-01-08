@@ -3,11 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
-	"strconv"
 
 	"github.com/chazyu1996/leap/client"
 	"github.com/chazyu1996/leap/config"
-	"github.com/chazyu1996/leap/tools"
 	"github.com/chazyu1996/leap/utils"
 )
 
@@ -16,14 +14,10 @@ func main() {
 	flag.Parse()
 	conf := config.GetYamlConfig(*configFilePath)
 	utils.InitConfigList(conf)
-	num := getInput()
+	num := utils.GetInput()
 	num -= 1
 	host := utils.GetHost(num)
-	address := host["address"].(string)
-	port := strconv.Itoa(host["port"].(int))
-	username := host["username"].(string)
-	password := host["password"].(string)
-	cli, err := client.DialWithPasswd(address+":"+port, username, password)
+	cli, err := client.GetClient(host)
 	if err != nil {
 		fmt.Println(err)
 	}
@@ -33,15 +27,4 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-}
-
-func getInput() int {
-	utils.Nav()
-	numStr := tools.GetInput()
-	num, err := strconv.Atoi(numStr[:len(numStr)-1])
-	if err != nil {
-		utils.Search(numStr[:len(numStr)-1])
-		num = getInput()
-	}
-	return num
 }

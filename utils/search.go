@@ -2,6 +2,7 @@ package utils
 
 import (
 	"regexp"
+	"strconv"
 
 	"github.com/chazyu1996/leap/tools"
 )
@@ -24,4 +25,14 @@ func Search(search string) {
 		}
 	}
 	configList = newConfigList
+}
+func GetInput() int {
+	Nav()
+	numStr := tools.GetInput()
+	num, err := strconv.Atoi(numStr[:len(numStr)-1])
+	if err != nil {
+		Search(numStr[:len(numStr)-1])
+		num = GetInput()
+	}
+	return num
 }
