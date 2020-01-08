@@ -15,6 +15,7 @@
  - [x] 检索
 
 ## 安装:
+### 源码安装
  1. `go get github.com/chazyu1996/leap`
 
  2. `cd $GOPATH/src/github.com/chazyu1996/leap`
@@ -22,6 +23,10 @@
  3. `go build leap.go`
 
  4. 编辑 `config.yaml` 文件
+
+### 二进制安装
+
+在此下载二进制文件即可`https://github.com/chazyu1996/leap/releases`
 
 ## 使用：
 1. 执行 leap 可执行文件
