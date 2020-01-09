@@ -11,8 +11,8 @@ type KeyWithPassAuth struct {
 	Host     []Host `yaml:"host"`
 }
 
-func GetKeyWithPassConfig(config *Config) []map[string]interface{} {
-	var result = []map[string]interface{}{}
+func GetKeyWithPassConfig(config *Config) []Map {
+	var result []Map
 	for _, hostList := range config.KeyWithPassList {
 		port := hostList.Port
 		for _, auth := range hostList.Auth {
@@ -22,7 +22,7 @@ func GetKeyWithPassConfig(config *Config) []map[string]interface{} {
 			for _, host := range auth.Host {
 				hostname := host.Hostname
 				address := host.Address
-				hostDict := make(map[string]interface{})
+				hostDict := make(Map)
 				hostDict["port"] = port
 				hostDict["username"] = username
 				hostDict["keyFile"] = keyFile

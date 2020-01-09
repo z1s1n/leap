@@ -1,17 +1,16 @@
 package utils
 
 import (
-	"regexp"
-	"strconv"
-
+	"github.com/chazyu1996/leap/config"
 	"github.com/chazyu1996/leap/tools"
+	"regexp"
 )
 
 func Search(search string) {
-	var newConfigList = []map[string]interface{}{}
-	for _, config := range configList {
-		hostname := config["hostname"].(string)
-		address := config["address"].(string)
+	var newConfigList []config.Map
+	for _, config_ := range configList {
+		hostname := config_["hostname"].(string)
+		address := config_["address"].(string)
 		matchHostname, err := regexp.MatchString("(.*)"+search+"(.*)", hostname)
 		if err != nil {
 			tools.PrintRed(err)
@@ -21,18 +20,8 @@ func Search(search string) {
 			tools.PrintRed(err)
 		}
 		if matchAddress || matchHostname {
-			newConfigList = append(newConfigList, config)
+			newConfigList = append(newConfigList, config_)
 		}
 	}
 	configList = newConfigList
-}
-func GetInput() int {
-	Nav()
-	numStr := tools.GetInput()
-	num, err := strconv.Atoi(numStr[:len(numStr)-1])
-	if err != nil {
-		Search(numStr[:len(numStr)-1])
-		num = GetInput()
-	}
-	return num
 }

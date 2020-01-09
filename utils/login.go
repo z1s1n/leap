@@ -8,7 +8,7 @@ import (
 	"github.com/chazyu1996/leap/tools"
 )
 
-var configList []map[string]interface{}
+var configList []config.Map
 
 func InitConfigList(conf *config.Config) {
 	configList = config.GetHostByConfig(conf)
@@ -35,10 +35,6 @@ func Nav() {
 	tools.PrintGreen("")
 }
 
-func GetHost(num int) map[string]interface{} {
+func GetHost(num int) config.Map {
 	return configList[num]
-}
-
-func GetConfigList() *[]map[string]interface{} {
-	return &configList
 }
