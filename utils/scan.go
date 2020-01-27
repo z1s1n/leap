@@ -30,5 +30,9 @@ func GetInput() int {
 		Search(numStr[:len(numStr)-1])
 		num = GetInput()
 	}
+	if num > len(configList) {
+		Search(numStr[:len(numStr)-1])
+		num = GetInput()
+	}
 	return num
 }
