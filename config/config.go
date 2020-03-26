@@ -19,6 +19,8 @@ type Host struct {
 	Address  string `yaml:"address"`
 }
 
+var ConfigInit *Config
+
 func GetYamlConfig(filePath string) *Config {
 	content, _ := ioutil.ReadFile(filePath)
 	config := Config{}
@@ -26,6 +28,7 @@ func GetYamlConfig(filePath string) *Config {
 	if err != nil {
 		tools.PrintRed(err)
 	}
+	ConfigInit = &config
 	return &config
 }
 

@@ -4,6 +4,8 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+
+	"github.com/chazyu1996/leap/config"
 )
 
 var (
@@ -18,6 +20,7 @@ func Scan() string {
 		Nav()
 		Input, _ = f.ReadString('\n') //定义一行输入的内容分隔符。
 		if len(Input) == 1 {
+			InitConfigList(config.ConfigInit)
 			continue //如果用户输入的是一个空行就让用户继续输入。
 		}
 		return Input
