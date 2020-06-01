@@ -5,34 +5,31 @@ type KeyWithPassList struct {
 	Auth []KeyWithPassAuth `yaml:"auth"`
 }
 type KeyWithPassAuth struct {
-	Username string `yaml:"username"`
-	KeyFile  string `yaml:"keyFile"`
-	Password string `yaml:"password"`
-	Host     []Host `yaml:"host"`
+	Username        string `yaml:"username"`
+	KeyFile         string `yaml:"keyFile"`
+	Password        string `yaml:"password"`
+	GoogleAuthToken string `yaml:"googleAuthToken,omitempty"`
+	Host            []Host `yaml:"host"`
 }
 
-func GetKeyWithPassConfig(config *Config) []Map {
-	var result []Map
+func GetKeyWithPassConfig(config *Config) *[]AllConfig {
+	var result []AllConfig
 	for _, hostList := range config.KeyWithPassList {
-		port := hostList.Port
 		for _, auth := range hostList.Auth {
-			username := auth.Username
-			password := auth.Password
-			keyFile := auth.KeyFile
 			for _, host := range auth.Host {
-				hostname := host.Hostname
-				address := host.Address
-				hostDict := make(Map)
-				hostDict["port"] = port
-				hostDict["username"] = username
-				hostDict["keyFile"] = keyFile
-				hostDict["password"] = password
-				hostDict["hostname"] = hostname
-				hostDict["address"] = address
-				hostDict["type"] = "keyWithPass"
-				result = append(result, hostDict)
+				hconf := AllConfig{
+					Hostname:        host.Hostname,
+					Port:            hostList.Port,
+					Username:        auth.Username,
+					Address:         host.Address,
+					GoogleAuthToken: auth.GoogleAuthToken,
+					KeyFile:         auth.KeyFile,
+					Password:        auth.Password,
+					Type:            "keyWithPass",
+				}
+				result = append(result, hconf)
 			}
 		}
 	}
-	return result
+	return &result
 }

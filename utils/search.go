@@ -1,21 +1,20 @@
 package utils
 
 import (
+	"regexp"
+
 	"github.com/chazyu1996/leap/config"
 	"github.com/chazyu1996/leap/tools"
-	"regexp"
 )
 
 func Search(search string) {
-	var newConfigList []config.Map
-	for _, config_ := range configList {
-		hostname := config_["hostname"].(string)
-		address := config_["address"].(string)
-		matchHostname, err := regexp.MatchString("(.*)"+search+"(.*)", hostname)
+	var newConfigList []config.AllConfig
+	for _, config_ := range *configList {
+		matchHostname, err := regexp.MatchString("(.*)"+search+"(.*)", config_.Hostname)
 		if err != nil {
 			tools.PrintRed(err)
 		}
-		matchAddress, err := regexp.MatchString("(.*)"+search+"(.*)", address)
+		matchAddress, err := regexp.MatchString("(.*)"+search+"(.*)", config_.Address)
 		if err != nil {
 			tools.PrintRed(err)
 		}
@@ -23,5 +22,5 @@ func Search(search string) {
 			newConfigList = append(newConfigList, config_)
 		}
 	}
-	configList = newConfigList
+	configList = &newConfigList
 }

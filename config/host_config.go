@@ -6,31 +6,29 @@ type HostList struct {
 }
 
 type auth struct {
-	Username string `yaml:"username"`
-	Password string `yaml:"password"`
-	Host     []Host `yaml:"host"`
+	Username        string `yaml:"username"`
+	Password        string `yaml:"password"`
+	GoogleAuthToken string `yaml:"googleAuthToken,omitempty"`
+	Host            []Host `yaml:"host"`
 }
 
-func GetHostConfig(config *Config) []Map {
-	var result []Map
+func GetHostConfig(config *Config) *[]AllConfig {
+	var result []AllConfig
 	for _, hostList := range config.HostList {
-		port := hostList.Port
 		for _, auth := range hostList.Auth {
-			username := auth.Username
-			password := auth.Password
 			for _, host := range auth.Host {
-				hostname := host.Hostname
-				address := host.Address
-				hostDict := make(Map)
-				hostDict["port"] = port
-				hostDict["username"] = username
-				hostDict["password"] = password
-				hostDict["hostname"] = hostname
-				hostDict["address"] = address
-				hostDict["type"] = "host"
-				result = append(result, hostDict)
+				hconf := AllConfig{
+					Port:            hostList.Port,
+					Hostname:        host.Hostname,
+					Username:        auth.Username,
+					Password:        auth.Password,
+					Address:         host.Address,
+					GoogleAuthToken: auth.GoogleAuthToken,
+					Type:            "host",
+				}
+				result = append(result, hconf)
 			}
 		}
 	}
-	return result
+	return &result
 }

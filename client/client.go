@@ -5,25 +5,27 @@ import (
 	"net"
 	"strconv"
 
+	"github.com/chazyu1996/leap/config"
 	"golang.org/x/crypto/ssh"
 )
 
 // 用户名密码
-func DialWithPasswd(addr, user, passwd string) (*ssh.Client, error) {
+func DialWithPasswd(auth *config.AllConfig) (*ssh.Client, error) {
 	config := &ssh.ClientConfig{
-		User: user,
+		User: auth.Username,
 		Auth: []ssh.AuthMethod{
-			ssh.Password(passwd),
+			ssh.Password(auth.Password),
+			ssh.KeyboardInteractive(keyboardInteractivePassword(auth.GoogleAuthToken)),
 		},
 		HostKeyCallback: ssh.HostKeyCallback(func(hostname string, remote net.Addr, key ssh.PublicKey) error { return nil }),
 	}
 
-	return ssh.Dial("tcp", addr, config)
+	return ssh.Dial("tcp", auth.Address+":"+strconv.Itoa(auth.Port), config)
 }
 
 // 通过key文件
-func DialWithKey(addr, user, keyfile string) (*ssh.Client, error) {
-	key, err := ioutil.ReadFile(keyfile)
+func DialWithKey(auth *config.AllConfig) (*ssh.Client, error) {
+	key, err := ioutil.ReadFile(auth.KeyFile)
 	if err != nil {
 		return nil, err
 	}
@@ -34,20 +36,21 @@ func DialWithKey(addr, user, keyfile string) (*ssh.Client, error) {
 	}
 
 	config := &ssh.ClientConfig{
-		User: user,
+		User: auth.Username,
 		Auth: []ssh.AuthMethod{
 			ssh.PublicKeys(signer),
+			ssh.KeyboardInteractive(keyboardInteractivePassword(auth.GoogleAuthToken)),
 		},
 		HostKeyCallback: ssh.HostKeyCallback(func(hostname string, remote net.Addr, key ssh.PublicKey) error { return nil }),
 	}
 
-	return ssh.Dial("tcp", addr, config)
+	return ssh.Dial("tcp", auth.Address+":"+strconv.Itoa(auth.Port), config)
 }
 
 // key+password
-func DialWithKeyAndPassword(addr, user, keyfile, password string) (*ssh.Client, error) {
-	key, err := ioutil.ReadFile(keyfile)
-	passwordBytes := []byte(password)
+func DialWithKeyAndPassword(auth *config.AllConfig) (*ssh.Client, error) {
+	key, err := ioutil.ReadFile(auth.KeyFile)
+	passwordBytes := []byte(auth.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -56,40 +59,27 @@ func DialWithKeyAndPassword(addr, user, keyfile, password string) (*ssh.Client, 
 		return nil, err
 	}
 	config := &ssh.ClientConfig{
-		User: user,
+		User: auth.Username,
 		Auth: []ssh.AuthMethod{
 			ssh.PublicKeys(signer),
+			ssh.KeyboardInteractive(keyboardInteractivePassword(auth.GoogleAuthToken)),
 		},
 		HostKeyCallback: ssh.HostKeyCallback(func(hostname string, remote net.Addr, key ssh.PublicKey) error { return nil }),
 	}
-	return ssh.Dial("tcp", addr, config)
+	return ssh.Dial("tcp", auth.Address+":"+strconv.Itoa(auth.Port), config)
 }
-func GetClient(host map[string]interface{}) (*ssh.Client, error) {
+func GetClient(host config.AllConfig) (*ssh.Client, error) {
 	var (
 		cli *ssh.Client
 		err error
 	)
-
-	switch type_ := host["type"].(string); type_ {
+	switch type_ := host.Type; type_ {
 	case "host":
-		address := host["address"].(string)
-		port := strconv.Itoa(host["port"].(int))
-		username := host["username"].(string)
-		password := host["password"].(string)
-		cli, err = DialWithPasswd(address+":"+port, username, password)
+		cli, err = DialWithPasswd(&host)
 	case "key":
-		address := host["address"].(string)
-		port := strconv.Itoa(host["port"].(int))
-		username := host["username"].(string)
-		keyFile := host["keyFile"].(string)
-		cli, err = DialWithKey(address+":"+port, username, keyFile)
+		cli, err = DialWithKey(&host)
 	case "keyWithPass":
-		address := host["address"].(string)
-		port := strconv.Itoa(host["port"].(int))
-		username := host["username"].(string)
-		password := host["password"].(string)
-		keyFile := host["keyFile"].(string)
-		cli, err = DialWithKeyAndPassword(address+":"+port, username, keyFile, password)
+		cli, err = DialWithKeyAndPassword(&host)
 	default:
 		cli = nil
 		err = nil

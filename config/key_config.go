@@ -6,31 +6,29 @@ type KeyList struct {
 }
 
 type KeyAuth struct {
-	Username string `yaml:"username"`
-	KeyFile  string `yaml:"keyFile"`
-	Host     []Host `yaml:"host"`
+	Username        string `yaml:"username"`
+	KeyFile         string `yaml:"keyFile"`
+	GoogleAuthToken string `yaml:"googleAuthToken,omitempty"`
+	Host            []Host `yaml:"host"`
 }
 
-func GetKeyConfig(config *Config) []Map {
-	var result []Map
+func GetKeyConfig(config *Config) *[]AllConfig {
+	var result []AllConfig
 	for _, hostList := range config.KeyList {
-		port := hostList.Port
 		for _, auth := range hostList.Auth {
-			username := auth.Username
-			keyFile := auth.KeyFile
 			for _, host := range auth.Host {
-				hostname := host.Hostname
-				address := host.Address
-				hostDict := make(Map)
-				hostDict["port"] = port
-				hostDict["username"] = username
-				hostDict["keyFile"] = keyFile
-				hostDict["hostname"] = hostname
-				hostDict["address"] = address
-				hostDict["type"] = "key"
-				result = append(result, hostDict)
+				hconf := AllConfig{
+					Hostname:        host.Hostname,
+					Port:            hostList.Port,
+					Username:        auth.Username,
+					Address:         host.Address,
+					GoogleAuthToken: auth.GoogleAuthToken,
+					KeyFile:         auth.KeyFile,
+					Type:            "key",
+				}
+				result = append(result, hconf)
 			}
 		}
 	}
-	return result
+	return &result
 }

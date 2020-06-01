@@ -20,7 +20,7 @@ hostList:
         host:
           - hostname: # 主机名（用于展示） 
             address: # ip地址
-keyList: # TODO 暂不支持密钥
+keyList:
   - port: # 端口 
     auth:
       - username: # 用户名
@@ -28,7 +28,7 @@ keyList: # TODO 暂不支持密钥
         host:
           - hostname: # 主机名
             address: # ip地址
-keyWithPasswordList: # TODO 密钥+密码
+keyWithPasswordList:
   - port:
     auth:
       - username:
