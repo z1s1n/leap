@@ -3,6 +3,7 @@ hostList:
     auth:
       - username: # 用户名1 
         password: # 密码 1
+        googleAuthToken: xxxxxxx
         host:
           - hostname: # 主机名（用于展示）
             address: # ip地址
@@ -25,6 +26,7 @@ keyList:
     auth:
       - username: # 用户名
         keyFile: # 密钥地址
+        googleAuthToken: xxxxxxx
         host:
           - hostname: # 主机名
             address: # ip地址
@@ -34,6 +36,7 @@ keyWithPasswordList:
       - username:
         keyFile:
         password:
+        googleAuthToken: xxxxxxx
         host:
           - hostname:
             address:
