@@ -14,8 +14,8 @@ This project through the establishment of the principle of the board jumper, sup
 
 ## install:
 
-1. `go get github.com/chazyu1996/leap`
-2. `cd $GOPATH/src/github.com/chazyu1996/leap`
+1. `go get github.com/morningfish/leap`
+2. `cd $GOPATH/src/github.com/morningfish/leap`
 3. `go build leap.go`
 4. Edit the `config.yaml` file
 
