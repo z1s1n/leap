@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/chazyu1996/leap/config"
+	"github.com/morningfish/leap/config"
 )
 
 var (

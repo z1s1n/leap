@@ -4,9 +4,9 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/chazyu1996/leap/client"
-	"github.com/chazyu1996/leap/config"
-	"github.com/chazyu1996/leap/utils"
+	"github.com/morningfish/leap/client"
+	"github.com/morningfish/leap/config"
+	"github.com/morningfish/leap/utils"
 )
 
 func main() {

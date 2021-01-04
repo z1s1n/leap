@@ -1,4 +1,4 @@
-module github.com/chazyu1996/leap
+module github.com/morningfish/leap
 
 go 1.13
 
