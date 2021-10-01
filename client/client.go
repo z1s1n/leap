@@ -5,7 +5,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/morningfish/leap/config"
+	"github.com/z1son/leap/config"
 	"golang.org/x/crypto/ssh"
 )
 

@@ -4,8 +4,8 @@ package utils
 import (
 	"strconv"
 
-	"github.com/morningfish/leap/config"
-	"github.com/morningfish/leap/tools"
+	"github.com/z1son/leap/config"
+	"github.com/z1son/leap/tools"
 )
 
 var configList *[]config.AllConfig

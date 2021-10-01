@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/morningfish/leap/tools"
+	"github.com/z1son/leap/tools"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/terminal"
 )

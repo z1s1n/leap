@@ -3,8 +3,8 @@ package utils
 import (
 	"regexp"
 
-	"github.com/morningfish/leap/config"
-	"github.com/morningfish/leap/tools"
+	"github.com/z1son/leap/config"
+	"github.com/z1son/leap/tools"
 )
 
 func Search(search string) {

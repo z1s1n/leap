@@ -3,7 +3,7 @@ package config
 import (
 	"io/ioutil"
 
-	"github.com/morningfish/leap/tools"
+	"github.com/z1son/leap/tools"
 	"gopkg.in/yaml.v2"
 )
 

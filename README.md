@@ -16,9 +16,9 @@
 
 ## 安装:
 ### 源码安装
- 1. `go get github.com/morningfish/leap`
+ 1. `go get github.com/z1son/leap`
 
- 2. `cd $GOPATH/src/github.com/morningfish/leap`
+ 2. `cd $GOPATH/src/github.com/z1son/leap`
 
  3. `go build leap.go`
 
@@ -26,7 +26,7 @@
 
 ### 二进制安装
 
-在此下载二进制文件即可`https://github.com/morningfish/leap/releases`
+在此下载二进制文件即可`https://github.com/z1son/leap/releases`
 
 ## 使用：
 1. 执行 leap 可执行文件
